@@ -2,10 +2,14 @@ package bbejeck.guava.chapter8.streams;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
+import com.google.common.io.CharSink;
+import com.google.common.io.CharSource;
 import com.google.common.io.CharStreams;
+import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
 import com.google.common.io.OutputSupplier;
+
 import org.junit.Test;
 
 import java.io.*;
@@ -28,13 +32,13 @@ public class CharStreamsTest {
         File joinedOutput = new File("src/test/resources/joined.txt");
         joinedOutput.deleteOnExit();
 
-        List<InputSupplier<InputStreamReader>> inputSuppliers = getInputSuppliers(f1,f2,f3);
+        List<CharSource> inputSuppliers = getInputSuppliers(f1,f2,f3);
 
-        InputSupplier<Reader> joinedSupplier = CharStreams.join(inputSuppliers);
-        OutputSupplier<OutputStreamWriter> outputSupplier = Files.newWriterSupplier(joinedOutput, Charsets.UTF_8);
+        CharSource joinedSupplier = CharSource.concat(inputSuppliers);
+        CharSink outputSupplier = Files.asCharSink(joinedOutput, Charsets.UTF_8, FileWriteMode.APPEND);
         String expectedOutputString = joinFiles(f1,f2,f3);
 
-        CharStreams.copy(joinedSupplier,outputSupplier);
+        joinedSupplier.copyTo(outputSupplier);
         String joinedOutputString  = joinFiles(joinedOutput);
         assertThat(joinedOutputString,is(expectedOutputString));
     }
@@ -47,10 +51,10 @@ public class CharStreamsTest {
         return builder.toString();
     }
 
-    private List<InputSupplier<InputStreamReader>> getInputSuppliers(File ...files){
-        List<InputSupplier<InputStreamReader>> list  = Lists.newArrayList();
+    private List<CharSource> getInputSuppliers(File ...files){
+        List<CharSource> list  = Lists.newArrayList();
         for (File file : files) {
-            list.add(Files.newReaderSupplier(file,Charsets.UTF_8));
+            list.add(Files.asCharSource(file,Charsets.UTF_8));
         }
        return list;
     }

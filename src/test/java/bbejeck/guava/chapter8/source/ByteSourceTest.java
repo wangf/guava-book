@@ -30,7 +30,7 @@ public class ByteSourceTest {
     @Test
     public void createByteSourceFromByteArray() throws Exception {
         byte[] bytes = new byte[]{0xF, 0xF, 0xF, 0x3, 0x3};
-        ByteSource byteSource = ByteStreams.asByteSource(bytes);
+        ByteSource byteSource = ByteSource.wrap(bytes);
         byte[] readBytes = byteSource.read();
         assertThat(readBytes, is(bytes));
     }
@@ -39,7 +39,7 @@ public class ByteSourceTest {
     public void createByteSliceTest() throws Exception {
         byte[] bytes = new byte[]{0xF, 0xF, 0xF, 0x3, 0x3, 0xA, 0xA, 0xA, 0xA, 0xA};
         byte[] expectedSlice = new byte[]{0xA, 0xA, 0xA, 0xA, 0xA};
-        ByteSource byteSource = ByteStreams.asByteSource(bytes);
+        ByteSource byteSource = ByteSource.wrap(bytes);
         ByteSource slice = byteSource.slice(5, 10);
         assertThat(slice.read(), is(expectedSlice));
     }

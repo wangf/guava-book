@@ -1,6 +1,8 @@
 package bbejeck.guava.chapter9.hashing;
 
 import bbejeck.guava.common.model.City;
+
+import com.google.common.base.Charsets;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hasher;
@@ -18,13 +20,13 @@ public class HasherExamples {
         HashFunction murmur3_128 = Hashing.murmur3_128();
         Hasher murmurHasher = murmur3_128.newHasher();
         City city = new City.Builder().build();
-        HashCode hashCode = murmurHasher.putString(city.getName())
+        HashCode hashCode = murmurHasher.putString(city.getName(), Charsets.UTF_8)
                                         .putDouble(city.getAverageRainfall()).hash();
         System.out.println(hashCode);
 
         HashFunction sha256 = Hashing.sha256();
         Hasher sha256Hasher = sha256.newHasher();
-         hashCode = sha256Hasher.putString(city.getName())
+         hashCode = sha256Hasher.putString(city.getName(), Charsets.UTF_8)
                 .putDouble(city.getAverageRainfall()).hash();
         System.out.println(hashCode);
     }
