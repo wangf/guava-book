@@ -4,12 +4,14 @@ import bbejeck.guava.common.model.City;
 import bbejeck.guava.common.model.Climate;
 import bbejeck.guava.common.model.Region;
 import bbejeck.guava.common.model.State;
+
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +30,7 @@ import static org.hamcrest.CoreMatchers.*;
  */
 public class FunctionsTest {
 
-    private  String format = "dd/mm/yyyy";
+    private  String format = "dd/MM/yyyy";
     private  String mapString = "foo=bar,red=white,moe=larry";
     private Map<String,String> testMap;
     private Map<String,State> stateMap = Maps.newHashMap();
@@ -48,13 +50,13 @@ public class FunctionsTest {
 
     @Test
     public void testInlineFunction(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         String expected =  dateFormat.format(date);
         Function<Date,String> function = new Function<Date, String>() {
             @Override
             public String apply( Date input) {
-               return new SimpleDateFormat("dd/mm/yyyy").format(input);
+               return new SimpleDateFormat("dd/MM/yyyy").format(input);
             }
         };
 
@@ -85,7 +87,13 @@ public class FunctionsTest {
         Function<Long,String> composedFunction = Functions.compose(dateFormatFunction,longToDateFunction);
         assertThat(composedFunction.apply(time),is("18/11/2003"));
     }
-
+    @Test
+    public void testCityToStringComposeFunction()throws Exception{
+    	 Function<String,State> stateMapFunction = Functions.forMap(stateMap);
+    	 
+        Function<String, String> composedFunction = Functions.compose(new StateToCityString(),stateMapFunction);
+        assertThat(composedFunction.apply("TX"),is("City{averageRainfall=45.3, name=Austin,TX, zipCode=12345, population=250000, climate=SUB_TROPICAL}"));
+    }
     @Test
     public void testForMapFunction() throws Exception {
        Function<String,State> stateMapFunction = Functions.forMap(stateMap);

@@ -58,7 +58,7 @@ public class SupplierTest {
     public void testComposedMemoizeWithExpirationSupplier() throws Exception {
         Book book = new Book.Builder().author("Pennypacker, HJ").isbn("ISBN-98765432").title("How I Made Millions").publisher("Acme Publishers").price(4999.99).build();
         when(bookService.get()).thenReturn(Lists.newArrayList(book));
-        Supplier<List<Book>> cachedSupplier = Suppliers.memoizeWithExpiration(bookListSupplier,10L,TimeUnit.MILLISECONDS);
+        Supplier<List<Book>> cachedSupplier = Suppliers.memoizeWithExpiration(bookListSupplier,32L,TimeUnit.MILLISECONDS);
         bookMapSupplier = Suppliers.compose(function, cachedSupplier);
         Map<String, String> bookMap = bookMapSupplier.get();
         assertThat(bookMap.get("ISBN-98765432"), is("How I Made Millions|Acme Publishers|4999.99"));
@@ -75,7 +75,7 @@ public class SupplierTest {
         bookMap = bookMapSupplier.get();
         assertThat(bookMap.get("ISBN-98765432"), is("How I Made Millions|Acme Publishers|4999.99"));
 
-        verify(bookService, times(4)).get();
+        verify(bookService, times(2)).get();
     }
 
 

@@ -17,7 +17,7 @@ import java.util.List;
 public class BookServiceImpl extends BaseDBService implements BookService {
 
     private static final String insertSql = " CREATE TABLE IF NOT EXISTS BOOK(AUTHOR VARCHAR(255), TITLE VARCHAR(255)," +
-            " PUBLISHER VARCHAR(255), ISBN VARCHAR(255), PRICE DOUBLE,ID INT PRIMARY KEY) AS SELECT * FROM CSVREAD('src/main/resources/books.data',null,'fieldSeparator=|')";
+            " PUBLISHER VARCHAR(255), ISBN VARCHAR(255), PRICE DOUBLE,ID INT PRIMARY KEY) AS SELECT * FROM CSVREAD('src/main/resources/books.data','AUTHOR|TITLE|PUBLISHER|ISBN|PRICE|ID','fieldSeparator=|')";
 
 
     public BookServiceImpl() {

@@ -17,10 +17,10 @@ public class ListsTest {
 
     @Test
     public void testPartition() {
-        List<Integer> numbers = Lists.newArrayList(1, 2, 3, 4);
-        List<List<Integer>> subLists = Lists.partition(numbers, 2);
-        List<Integer> s1 = Lists.newArrayList(1, 2);
-        List<Integer> s2 = Lists.newArrayList(3, 4);
+        List<Integer> numbers = Lists.newArrayList(1, 2, 3, 4, 5);
+        List<List<Integer>> subLists = Lists.partition(numbers, 3);
+        List<Integer> s1 = Lists.newArrayList(1, 2, 3);
+        List<Integer> s2 = Lists.newArrayList(4, 5);
         assertThat(subLists.get(0), is(s1));
         assertThat(subLists.get(1), is(s2));
     }

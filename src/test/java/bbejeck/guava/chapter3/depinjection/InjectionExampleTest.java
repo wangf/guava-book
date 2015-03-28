@@ -4,7 +4,9 @@ import bbejeck.guava.chapter3.config.Chapter3Config;
 import bbejeck.guava.chapter7.EventBusTestBase;
 import bbejeck.guava.common.model.Book;
 import bbejeck.guava.common.model.City;
+
 import com.google.common.collect.Lists;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -30,7 +32,8 @@ public class InjectionExampleTest extends EventBusTestBase {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        ApplicationContext context = new AnnotationConfigApplicationContext(Chapter3Config.class);
+        @SuppressWarnings("resource")
+		ApplicationContext context = new AnnotationConfigApplicationContext(Chapter3Config.class);
         example = context.getBean(InjectionExample.class);
         cities = Lists.newArrayList(city, city2);
     }
@@ -48,7 +51,7 @@ public class InjectionExampleTest extends EventBusTestBase {
     @Test
     public void testGetListOfBooks() throws Exception {
         List<Book> books = example.getListOfBooks();
-        assertThat(books.size(), is(5));
+        assertThat(books.size(), is(6));
     }
 
     @Test

@@ -35,7 +35,7 @@ public class CacheBuilderSpecTest {
         TradeAccountRemovalListener removalListener = new TradeAccountRemovalListener();
         String spec = "concurrencyLevel=10,expireAfterAccess=1s,softValues";
         CacheBuilderSpec cacheBuilderSpec = CacheBuilderSpec.parse(spec);
-        CacheBuilder cacheBuilder = CacheBuilder.from(cacheBuilderSpec);
+        CacheBuilder<Object, Object> cacheBuilder = CacheBuilder.from(cacheBuilderSpec);
         LoadingCache<String, TradeAccount> tradeAccountCache = cacheBuilder.ticker(Ticker.systemTicker())
             .removalListener(removalListener)
             .build(new CacheLoader<String, TradeAccount>() {

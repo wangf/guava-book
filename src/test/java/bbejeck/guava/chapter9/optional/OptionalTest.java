@@ -20,7 +20,7 @@ public class OptionalTest {
         assertThat(tradeAccountOptional.isPresent(),is(true));
     }
 
-    @Test
+    @Test     
     public void testOptionalOfInstance(){
         TradeAccount tradeAccount = new TradeAccount.Builder().build();
         Optional<TradeAccount> tradeAccountOptional = Optional.of(tradeAccount);

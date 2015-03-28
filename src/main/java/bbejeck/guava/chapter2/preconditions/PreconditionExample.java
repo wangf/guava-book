@@ -22,7 +22,7 @@ public class PreconditionExample {
         //Check index valid first
         this.currentIndex = checkElementIndex(index, values.length, "Index out of bounds for values");
         //Validate state of value
-        checkArgument(valueToSet <= 100,"Value can't be more than 100");
+        checkArgument(valueToSet <= 100,"Value can't be more than %s",100, "extra1");
         values[this.currentIndex] = valueToSet;
     }
 

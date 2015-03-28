@@ -48,6 +48,7 @@ public class BloomFilterTest {
                 falsePositiveCount++;
             }
         }
+        System.out.println(falsePositiveCount);
         assertThat(falsePositiveCount < 5, is(true));
     }
 
@@ -87,7 +88,9 @@ public class BloomFilterTest {
     }
 
     private class BigIntegerFunnel implements Funnel<BigInteger> {
-        @Override
+		private static final long serialVersionUID = -3682582829227502717L;
+
+		@Override
         public void funnel(BigInteger from, PrimitiveSink into) {
             into.putBytes(from.toByteArray());
         }

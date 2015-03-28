@@ -49,6 +49,9 @@ public class SetsTest {
 
         sv = Sets.difference(s2,s1);
         assertThat(sv.size()==1 && sv.contains("4"),is(true));
+        s1.add("4");
+        assertThat(sv.size()==0,is(true));
+        
     }
 
     @Test

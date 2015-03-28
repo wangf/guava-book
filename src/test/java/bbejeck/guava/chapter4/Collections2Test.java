@@ -61,5 +61,6 @@ public class Collections2Test {
                 return Joiner.on('#').join(input.getLastName(), input.getFirstName(), input.getAge());
             }
         });
+        assertThat(transformed.toArray(new String[4])[1], is("Flintsone#Fred#32"));
     }
 }

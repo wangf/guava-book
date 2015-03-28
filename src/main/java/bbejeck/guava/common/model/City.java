@@ -1,5 +1,6 @@
 package bbejeck.guava.common.model;
 
+import com.google.common.base.Objects;
 import com.google.common.primitives.Doubles;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -42,13 +43,14 @@ public class City {
 
     @Override
     public String toString() {
-        return "City{" +
-                "averageRainfall=" + averageRainfall +
-                ", name='" + name + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", population=" + population +
-                ", climate=" + climate +
-                "} " + super.toString();
+    	return Objects.toStringHelper(this)
+    		 .omitNullValues()
+    		 .add("averageRainfall", averageRainfall)
+    		 .add("name", name)
+    		 .add("zipCode", zipCode)
+    		 .add("population",population)
+    		 .add("climate", climate).toString();
+
     }
 
     public Climate getClimate() {

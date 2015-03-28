@@ -1,6 +1,7 @@
 package bbejeck.guava.chapter9.bloomfilter;
 
 import bbejeck.guava.common.model.Book;
+
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -26,7 +27,8 @@ public class BloomFilterExample {
             Splitter splitter = Splitter.on('|');
             List<Book> books = Lists.newArrayList();
             Book.Builder builder = new Book.Builder();
-
+            
+            @Override
             public boolean processLine(String line) throws IOException {
                 List<String> parts = Lists.newArrayList(splitter.split(line));
                 builder.author(parts.get(0))
