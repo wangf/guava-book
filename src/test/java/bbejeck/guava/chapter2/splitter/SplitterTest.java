@@ -105,8 +105,8 @@ public class    SplitterTest {
     @Test
     public void testSplitOnCharacterKeepMissing(){
         char delimiter = '|';
-        String text = "foo|bar|||baz";
-        String[] expected = new String[]{"foo","bar","","","baz"};
+        String text = "foo|bar|||baz|";
+        String[] expected = new String[]{"foo","bar","","","baz",""};
         Iterable<String> values = Splitter.on(delimiter).split(text);
         int index = 0;
         for (String value : values) {
